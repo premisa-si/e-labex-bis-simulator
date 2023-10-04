@@ -1,3 +1,17 @@
+
+## How to deploy on Windows Server/IIS
+Everything is ready to deploy this app on Windows Server 2019 with IIS. Just do the following:
+1. Build this application by entering "npm run build-prod" into terminal
+2. Install iisnode module on target server. Download from here: 
+3. Install nodejs on target server: Download from here:
+4. After build gets completed (see first step), deploy the following to your target server:
+  - .next folder
+  - node_modules folder *optional -> the other option is to deploy packeges-lock.json, enter into node and enter "npm install" into node terminal. For this step you need internet connection on target server.
+  - server.js
+  - web.config
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
