@@ -41,7 +41,7 @@ steps:
 # Copy server.js and web.config files
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/src'
+    SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       server.js
       web.config
