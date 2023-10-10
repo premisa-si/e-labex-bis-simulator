@@ -36,7 +36,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/public'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/public'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 # Copy server.js and web.config files
 - task: CopyFiles@2
