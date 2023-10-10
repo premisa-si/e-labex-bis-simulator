@@ -12,18 +12,18 @@ async function onSubmit(jsonPayload) {
   fetch("/api/simulator/send-referral", {
     method: "POST",
     body: JSON.stringify(jsonPayload),
-    // headers: {
-    //   "content-type": "application/json",
-    //   "Labex-Referral-Api-Key": jsonPayload.apiKey,
-    //   "Labex-Referral-Business-Unit": jsonPayload.businessUnit //"654321"
-    // },
   }).then(async response => console.log('Yeah:', await response.text())).catch(e => console.log(e))
 }
 
 export default function Home() {
-  const [businessUnit, setBusinessUnit] = useState("654321");
-  const [apiKey, setApiKey] = useState("abcd-1234-defg-5678");
-  const [apiSecret, setApiSecret] = useState("1234");
+  const [businessUnit, setBusinessUnit] = useState("654321")
+  const [userName, setUserName] = useState("uporabniskoIme")
+  const [fullName, setFullName] = useState("Ime Priimek")
+  const [apiUrl, setApiUrl] = useState("https://test-e-referral.patologija.mf")
+  const [apiKey, setApiKey] = useState("abcd-1234-defg-5678")
+  const [apiSecret, setApiSecret] = useState("1234")
+  const [correlationId, setCorrelationId] = useState("bis-ref-1")
+  const [correlationInfo, setCorrelationInfo] = useState("Opis za bis-ref-1")
   const [patientKzz, setPatientKzz] = useState("012345678")
   const [patientSurname, setPatientSurname] = useState("Winslet")
   const [patientName, setPatientName] = useState("Kate")
@@ -49,11 +49,11 @@ export default function Home() {
             event.preventDefault()
             console.log('Submitting!')
             onSubmit({
-              businessUnit: businessUnit, apiKey: apiKey, apiSecret: apiSecret
-              , userName: 'dengia', fullName: 'Denis Giacomelli'
+              businessUnit: businessUnit, apiUrl: apiUrl, apiKey: apiKey, apiSecret: apiSecret
+              , userName: userName, fullName: fullName
               , payload: {
-                correlationId: 'bis-simulator-1',
-                correlationInfo: 'From BIS simulator',
+                correlationId: correlationId,
+                correlationInfo: correlationInfo,
                 priority: priority,
                 patient: {
                   uniquifier: patientKzz,
@@ -78,7 +78,7 @@ export default function Home() {
           }}>
           <Card>
             <CardHeader className="text-left text-xl md:text-base font-bold gap-3">
-              Organizacija
+              API
             </CardHeader>
             <Divider />
             <CardBody>
@@ -87,22 +87,12 @@ export default function Home() {
                   clearable
                   underlined
                   fullWidth
-                  label="BPI"
+                  label="API URL"
                   variant="flat"
-                  value={businessUnit}
-                  onValueChange={setBusinessUnit}
+                  value={apiUrl}
+                  onValueChange={setApiUrl}
                 />
-              </div>
-            </CardBody>
-          </Card>
-          <Spacer y={1} />
-          <Card>
-            <CardHeader className="text-left text-xl md:text-base font-bold gap-3">
-              API
-            </CardHeader>
-            <Divider />
-            <CardBody>
-              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
+                <Spacer y={1} />
                 <Input
                   clearable
                   underlined
@@ -124,6 +114,67 @@ export default function Home() {
                   onValueChange={setApiSecret}
                 />
               </div>
+            </CardBody>
+          </Card>
+          <Spacer y={1} />
+          <Card>
+            <CardHeader className="text-left text-xl md:text-base font-bold gap-3">
+              Organizacija
+            </CardHeader>
+            <Divider />
+            <CardBody>
+              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
+                <Input
+                  clearable
+                  underlined
+                  fullWidth
+                  label="BPI"
+                  variant="flat"
+                  value={businessUnit}
+                  onValueChange={setBusinessUnit}
+                />
+                <Spacer y={1} />
+                <Input
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Uporabniško ime"
+                  variant="flat"
+                  value={userName}
+                  onValueChange={setUserName}
+                />
+                {/* <Spacer y={1} />
+                <Input
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Ime in priimek uporabnika"
+                  variant="flat"
+                  value={fullName}
+                  onValueChange={setFullName}
+                /> */}
+              </div>
+              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
+                <Input
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Številka BIS naročilnice"
+                  variant="flat"
+                  value={correlationId}
+                  onValueChange={setCorrelationId}
+                />
+                <Spacer y={1} />
+                <Input
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Opomba BIS naročilnice"
+                  variant="flat"
+                  value={correlationInfo}
+                  onValueChange={setCorrelationInfo}
+                />
+              </div>              
             </CardBody>
           </Card>
           <Spacer y={1} />

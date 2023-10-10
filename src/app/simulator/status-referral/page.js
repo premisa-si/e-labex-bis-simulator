@@ -7,6 +7,9 @@ import { Input } from '@nextui-org/input'
 import { useState } from 'react'
 
 export default function Home() {
+  const [businessUnit, setBusinessUnit] = useState("654321");
+  const [apiKey, setApiKey] = useState("abcd-1234-defg-5678");
+  const [apiSecret, setApiSecret] = useState("1234");
   const [referralId, setReferralId] = useState("");
   const [correlationId, setCorrelationId] = useState("");
   const [status, setStatus] = useState("")
@@ -17,12 +20,13 @@ export default function Home() {
     fetch("/api/simulator/status-referral", {
       method: "POST",
       body: JSON.stringify(jsonPayload),
-      // headers: {
-      //   "content-type": "application/json",
-      //   "Labex-Referral-Api-Key": jsonPayload.apiKey,
-      //   "Labex-Referral-Business-Unit": jsonPayload.businessUnit //"654321"
-      // },
-    }).then(async response => console.log('Yeah:', await response.text())).catch(e => console.log(e))
+    }).then(async response => {
+      const value = await response.text()
+      const json = JSON.parse(value)
+      const pretty = JSON.stringify(json, null, 2)
+      setStatus(pretty)
+      console.log('Yeah:', pretty)
+    }).catch(e => console.log(e))
 
   }
 
@@ -35,6 +39,10 @@ export default function Home() {
         <form>
           <Card>
             <CardHeader>
+
+            </CardHeader>
+            <Divider />
+            <CardBody>
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
                 <Input
                   clearable
@@ -46,6 +54,21 @@ export default function Home() {
                   onValueChange={setReferralId}
                 />
               </div>
+              <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve({
+                businessUnit: businessUnit, apiKey: apiKey, apiSecret: apiSecret
+                , userName: 'dengia', fullName: 'Denis Giacomelli', payload: { referralId: referralId }
+              })}>Poizvedi</Button>
+              <Spacer y={1} />
+              <pre>{status}</pre>
+            </CardBody>
+          </Card>
+          <Spacer y={1} />
+          <Card>
+            <CardHeader>
+
+            </CardHeader>
+            <Divider />
+            <CardBody>
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
                 <Input
                   clearable
@@ -58,11 +81,6 @@ export default function Home() {
                 />
               </div>
               <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve({ referralId, correlationId })}>Poizvedi</Button>
-
-            </CardHeader>
-            <Divider />
-            <CardBody>
-
             </CardBody>
           </Card>
         </form>
