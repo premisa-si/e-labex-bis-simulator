@@ -47,6 +47,6 @@ steps:
       web.config
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- publish: $(System.ArtifactStagingDirectory)
+- publish: $(Build.ArtifactStagingDirectory)
   artifact: drop
   displayName: 'Drop Artifacts'
