@@ -38,6 +38,4 @@ export async function POST(req) {
   const data = await res.json()
   console.log('POST response:', data)
   return NextResponse.json({ data })
-
-  //return new Response({"message": "This is POST /api/simulator/send-referral route"});
 }
