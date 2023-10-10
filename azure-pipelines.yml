@@ -20,6 +20,33 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- publish: $(System.DefaultWorkingDirectory)/public
+# Copy .next directory
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/.next'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/.next'
+
+# Copy node_modules directory
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/node_modules'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/node_modules'
+
+# Copy public directory
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/public'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/public'
+
+# Copy server.js and web.config files
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/src'
+    Contents: |
+      server.js
+      web.config
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- publish: $(System.ArtifactStagingDirectory)
   artifact: drop
   displayName: 'Drop Artifacts'
