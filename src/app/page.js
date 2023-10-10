@@ -11,28 +11,42 @@ export default function Home() {
         </p>
         <div>
           <a
-            href="/simulator/send-referral"
+            href="http://wwww.premisa.si"
             target="_blank"
             rel="noopener noreferrer"
           >
             By{' '}
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
+              src="/premisa.svg"
+              alt="Premisa Logo"
               className={styles.vercelLogo}
               width={100}
               height={24}
               priority
             />
           </a>
+          <a
+            href="http://wwww.patologija.si"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/institut_za_patologijo.svg"
+              alt="Inštitut za patologijo Logo"
+              className={styles.vercelLogo}
+              width={42}
+              height={24}
+              priority
+            />
+          </a>          
         </div>
       </div>
 
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
+          src="/labex.svg"
+          alt="Labex Logo"
           width={180}
           height={37}
           priority
