@@ -19,7 +19,7 @@ export default function Home() {
   const [businessUnit, setBusinessUnit] = useState("654321")
   const [userName, setUserName] = useState("uporabniskoIme")
   const [fullName, setFullName] = useState("Ime Priimek")
-  const [apiUrl, setApiUrl] = useState("https://test-e-referral.patologija.mf")
+  const [apiUrl, setApiUrl] = useState("http://localhost:7071") //useState("https://test-e-referral.patologija.mf")
   const [apiKey, setApiKey] = useState("abcd-1234-defg-5678")
   const [apiSecret, setApiSecret] = useState("1234")
   const [correlationId, setCorrelationId] = useState("bis-ref-1")
@@ -154,6 +154,7 @@ export default function Home() {
                   onValueChange={setFullName}
                 /> */}
               </div>
+              <Spacer y={1} />
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
                 <Input
                   clearable
