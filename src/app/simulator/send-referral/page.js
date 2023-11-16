@@ -2,7 +2,7 @@
 
 import styles from './page.module.css'
 import { Card, CardHeader, CardBody, Spacer, Divider, ButtonGroup, Textarea, user } from '@nextui-org/react'
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react"
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Link } from "@nextui-org/react"
 
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
@@ -13,7 +13,7 @@ export default function Home() {
   const [businessUnit, setBusinessUnit] = useState("654321")
   const [userName, setUserName] = useState("uporabniskoIme")
   const [fullName, setFullName] = useState("Ime Priimek")
-  const [apiUrl, setApiUrl] = useState("http://localhost:7071") //useState("https://test-e-referral.patologija.mf")
+  const [apiUrl, setApiUrl] = useState("http://localhost:7071")
   const [apiKey, setApiKey] = useState("abcd-1234-defg-5678")
   const [apiSecret, setApiSecret] = useState("1234")
   const [correlationId, setCorrelationId] = useState("bis-ref-1")
@@ -36,24 +36,19 @@ export default function Home() {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const onSubmit = async payload => {
-    console.log('payload:', payload)
     //Send a fetch request to Backend API.
     try {
       const response = await fetch("/api/simulator/send-referral", {
         method: "POST",
         body: JSON.stringify(payload),
       })
-      console.log('Response', response)
       if (response.ok) {
-        console.log('Response.OK')
         // If response is in the 200-299 range
         const data = await response.json()
-        setResponse({ status: response.status, message: 'Naročilnica je bila uspešno poslana', data: data })
+        setResponse({ status: response.status, message: 'Naročilnica je bila uspešno poslana', data: { ...data.data } })
       } else {
-        console.log('Response.Error, response', response)
         // If response is 4xx or 5xx
         const errorData = await response.text();
-        console.log('errorData', errorData)
         setResponse({ status: response.status, message: 'Strežnik je odgovoril z napako', data: errorData });
       }
     }
@@ -439,13 +434,18 @@ export default function Home() {
                         </p>
                       </pre>
                     </div>
-                    // <p style={{ color: 'red' }}>
-                    //   Error: Status {response.status} - Reason: {response.message || 'N/A'}
-                    // </p>
                   )
                 )}
               </ModalBody>
               <ModalFooter>
+                {response && (
+                  response.status >= 200 && response.status < 300 ? (
+                    // Successful response
+                    <Link href={response.data.url} target="_blank" style={{ color: 'green', textDecoration: 'none' }}>
+                      Pojdi na naročilnico
+                    </Link>
+                  ) : null
+                )}
                 <Button color="primary" variant="light" onPress={onClose}>
                   Zapri
                 </Button>

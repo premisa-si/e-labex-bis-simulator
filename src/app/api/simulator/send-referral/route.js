@@ -42,8 +42,6 @@ export async function POST(req) {
     },
   })
   const data = await response.json()
-  console.log('POST response:', response)
-  console.log('POST response data:', data)
   return new NextResponse(JSON.stringify({ data }), {
     status: response.status,
     headers: {
