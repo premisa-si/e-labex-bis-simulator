@@ -1,7 +1,7 @@
 "use client"
 
 import styles from './page.module.css'
-import { Card, CardHeader, CardBody, Spacer, Divider, ButtonGroup, Textarea } from '@nextui-org/react'
+import { Card, CardHeader, CardBody, Spacer, Divider, ButtonGroup, Textarea, user } from '@nextui-org/react'
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
 import { useState } from 'react'
@@ -49,8 +49,15 @@ export default function Home() {
             event.preventDefault()
             console.log('Submitting!')
             onSubmit({
-              businessUnit: businessUnit, apiUrl: apiUrl, apiKey: apiKey, apiSecret: apiSecret
-              , userName: userName, fullName: fullName
+               apiUrl: apiUrl, apiSecret: apiSecret
+              , sender: {
+                apiKey: apiKey,
+                businessUnit: businessUnit,
+                userName: userName
+              }
+              , user: {
+                fullName: fullName
+              }
               , payload: {
                 correlationId: correlationId,
                 correlationInfo: correlationInfo,
