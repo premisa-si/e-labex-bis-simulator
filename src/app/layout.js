@@ -5,7 +5,7 @@ import { Providers } from "./providers"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Labex e-referral BIS Simulator',
+  title: 'Labex BIS Simulator',
   description: 'BIS Simulator',
 }
 

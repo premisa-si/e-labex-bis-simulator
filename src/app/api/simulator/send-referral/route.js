@@ -22,7 +22,6 @@ export async function POST(req) {
   delete body.apiUrl
   delete body.sender
 
-  //'http://localhost:7071/api/external'
   const method = 'POST'
   const endpoint = '/api/external'
   const address = `${apiUrl}${endpoint}`
@@ -31,7 +30,7 @@ export async function POST(req) {
   const bodyStringified = JSON.stringify(body)
   const signature = signRequest(apiSecret, endpoint, method, bodyStringified);
 
-  const res = await fetch(address, {
+  const response = await fetch(address, {
     method: "POST",
     body: bodyStringified,
     headers: {
@@ -42,11 +41,18 @@ export async function POST(req) {
       [headers.Signature]: signature,
     },
   })
-  const data = await res.json()
-  console.log('POST response:', data)
-  return NextResponse.json({ data })
+  const data = await response.json()
+  console.log('POST response:', response)
+  console.log('POST response data:', data)
+  return new NextResponse(JSON.stringify({ data }), {
+    status: response.status,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 }
 
+//Sign request
 function signRequest(apiSecret, endpoint, method, body) {
   const message = `${endpoint}${method}${body}`
   console.log('message:', message)
@@ -56,6 +62,7 @@ function signRequest(apiSecret, endpoint, method, body) {
     .digest('hex')
 }
 
+//Pad ApiSecret if it's less than 64 bytes
 function padApiSecret(apiSecret) {
   let apiSecretBuffer = Buffer.from(apiSecret, 'utf8') // Convert string to Buffer
   let apiSecretPadded = Buffer.alloc(64) // Allocate a Buffer of 64 bytes, automatically filled with zeros
