@@ -7,11 +7,11 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          Izvorno kodo dobite na &nbsp;<a href="/simulator/send-referral">Github-u</a>
+          Izvorno kodo dobite na &nbsp;<a href="https://github.com/premisa-si/e-labex-bis-simulator" target="_blank" rel="noopener noreferrer">Github-u</a>
         </p>
         <div>
           <a
-            href="http://wwww.premisa.si"
+            href="http://www.premisa.si"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -26,7 +26,7 @@ export default function Home() {
             />
           </a>
           <a
-            href="http://wwww.patologija.si"
+            href="http://www.patologija.si"
             target="_blank"
             rel="noopener noreferrer"
           >
