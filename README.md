@@ -1,20 +1,38 @@
+# For BIS providers
+## Namen aplikacije
+Namen aplikacije je prikazati delujoč primer pošiljanja naročilnice v e-labex.
+
+## Kje najdem primere?
+### Pošiljanje naročilnice
+Primer pošiljanja lahko razberete v programski kodi, kjer je implementirana spletna metoda [POST](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/send-referral/route.js#L9). Zraven so implementirane tudi pomožne metode za [podpisovanje](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/send-referral/route.js#L54) zahtevka.
+
+### Pridobitev statusa
+Primer pridobivanja statusa naročilnice po ID ali vaši interni številki (BIS referenca) lahko razberete v programski kodi, kjer je implementirana spletna metoda [POST](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-referral/route.js#L36).
+
+### Pridobitev seznama statusov
+Primer pridobivanja seznama statusov naročilnice lahko razberete v programski kodi, kjer je implementirana spletna metoda [POST]
+
+### Pridobitev izvida
+Primer pridobivanja izvida je še v delu, zato trenutno še ni na voljo.
+
+# For internal purposes
 
 ## How to deploy on Windows Server/IIS
-Everything is ready to deploy this app on Windows Server 2019 with IIS. Just do the following:
-1. Build this application by entering "npm run build-prod" into terminal
-2. Install iisnode module on target server. Download from here: 
-3. Install nodejs on target server: Download from here:
-4. After build gets completed (see first step), deploy the following to your target server:
+Everything is ready to deploy the app on Windows Server 2019 with IIS. Just do the following: 
+1. Install iisnode module on target server. Download from here: 
+2. Install nodejs on target server: Download from here:
+3. Build this application:
+```bash
+npm run build
+```
+4. After build gets completed, deploy the following to your target server:
   - .next folder
-  - node_modules folder *optional -> the other option is to deploy packeges-lock.json, enter into node and enter "npm install" into node terminal. For this step you need internet connection on target server.
-  - server.js
-  - web.config
+  - node_modules folder (keep in mind this is quite large folder, so copying might take some time)
 
 
 
+## How to run app localy
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
 
 First, run the development server:
 
@@ -31,18 +49,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

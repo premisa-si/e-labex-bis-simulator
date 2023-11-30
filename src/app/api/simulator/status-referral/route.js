@@ -1,67 +1,46 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import * as headers from '../../headers'
-
-// export async function POST(req) {
-//   const body = await req.json()
-//   const apiKey = body.apiKey
-//   const apiSecret = body.apiSecret
-//   const businessUnit = body.businessUnit
-//   const userName = body.userName
-//   const fullName = body.fullName
-//   console.log('POST with body:', body)
-//   delete body.apiKey
-//   delete body.apiSecret
-//   delete body.businessUnit
-//   delete body.userName
-//   delete body.fullName
-  
-//   const res = await fetch('http://localhost:7071/api/external', {
-//     method: "POST",
-//     body: JSON.stringify(body),
-//     headers: {
-//       "Content-Type": "application/json",
-//       [headers.ApiKey]: apiKey,
-//       [headers.BusinessUnit]: businessUnit,
-//       [headers.UserName]: userName,
-//       [headers.FullName]: fullName
-//     },
-//   })
-//   const data = await res.json()
-//   console.log('POST response:', data)
-//   return NextResponse.json({ data })
-
-//   //return new Response({"message": "This is POST /api/simulator/send-referral route"});
-// }
+import * as helpers from '../../helpers'
 
 export async function POST(request) {
-  console.log('POST request:', request)
   const body = await request.json()
-  const apiKey = body.apiKey
+  const apiUrl = body.apiUrl
   const apiSecret = body.apiSecret
-  const businessUnit = body.businessUnit
-  const userName = body.userName
-  const fullName = body.fullName
-  console.log('POST with body:', body)
-  delete body.apiKey
-  delete body.apiSecret
-  delete body.businessUnit
-  delete body.userName
-  delete body.fullName
+  const sender = body.sender
 
-  const id = body.payload.referralId
-  const res = await fetch(`http://localhost:7071/api/external/status/${id}`, {
-    method: "GET",
+  console.log('Body:', body)
+
+  //Remove apiSecret and apiUrl as both are here just
+  //to make it easier testing by end user.
+  //Neither MUST NOT be in request.
+  delete body.apiSecret
+  delete body.apiUrl
+  delete body.sender
+
+  const method = 'GET'
+  const endpoint = body.payload.referralId ? `/api/external/status/${body.payload.referralId}` : `/api/external/status?correlationId=${body.payload.correlationId}`
+  const address = `${apiUrl}${endpoint}`
+  console.log(`${method} to address ${address}`)
+
+  //Empty body on GET request
+  const signature = helpers.signRequest(apiSecret, endpoint, method, '');
+
+  const response = await fetch(address, {
+    method: method,
     headers: {
       "Content-Type": "application/json",
-      [headers.ApiKey]: apiKey,
-      [headers.BusinessUnit]: businessUnit,
-      [headers.UserName]: userName,
-      [headers.FullName]: fullName
+      [headers.ApiKey]: sender.apiKey,
+      [headers.BusinessUnit]: sender.businessUnit,
+      [headers.UserName]: sender.userName,
+      [headers.Signature]: signature,
+    },
+  })
+  const data = await response.json()
+  console.log('Response:', data)
+  return new NextResponse(JSON.stringify({ data }), {
+    status: response.status,
+    headers: {
+      'Content-Type': 'application/json'
     }
   })
-  const data = await res.json()
-  console.log('GET response:', data)
-  return NextResponse.json({ data })
-
-  // return new Response("This is GET /api/simulator/status-referral route")
 }

@@ -171,16 +171,16 @@ export default function Home() {
                   value={userName}
                   onValueChange={setUserName}
                 />
-                {/* <Spacer y={1} />
+                <Spacer y={1} />
                 <Input
                   clearable
                   underlined
                   fullWidth
-                  label="Ime in priimek uporabnika"
+                  label="Ime in priimek"
                   variant="flat"
                   value={fullName}
                   onValueChange={setFullName}
-                /> */}
+                />
               </div>
               <Spacer y={1} />
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">

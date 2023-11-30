@@ -61,7 +61,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Pošiljanje <span>-&gt;</span>
+            Pošiljanje
           </h2>
           <p>Pošljite naročilnico v e-labex.</p>
         </a>
@@ -73,9 +73,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Status <span>-&gt;</span>
+            Status
           </h2>
-          <p>Pridobite status naročilnice po ID ali po vaši interni številki.</p>
+          <p>Pridobite status naročilnice po ID ali po vaši interni številki (BIS referenca).</p>
         </a>
 
         <a
@@ -85,7 +85,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Seznam statusov <span>-&gt;</span>
+            Seznam statusov
           </h2>
           <p>Pridobite seznam statusov za določen dan.</p>
         </a>
@@ -97,7 +97,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Izvidi <span>-&gt;</span>
+            Izvidi
           </h2>
           <p>
             Pridobite vse izvide za naročilnico.
