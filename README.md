@@ -3,14 +3,17 @@
 Namen aplikacije je prikazati delujoč primer pošiljanja naročilnice v e-labex.
 
 ## Kje najdem primere?
+### Podpisovanje zahtevkov
+Metode za podpisovanje zahtevkov so implementirane v [/app/api/helpers.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/helpers.js#L4).
+
 ### Pošiljanje naročilnice
-Primer pošiljanja lahko razberete v programski kodi, kjer je implementirana spletna metoda [POST](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/send-referral/route.js#L9). Zraven so implementirane tudi pomožne metode za [podpisovanje](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/send-referral/route.js#L54) zahtevka.
+Metode za pošiljanje so implementirane v [/app/api/simulator/send-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/send-referral/route.js#L5).
 
 ### Pridobitev statusa
-Primer pridobivanja statusa naročilnice po ID ali vaši interni številki (BIS referenca) lahko razberete v programski kodi, kjer je implementirana spletna metoda [POST](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-referral/route.js#L36).
+Metode ze pridobitev statusa naročilnice po ID ali vaši interni številki (BIS referenca) so implementirane v [/app/api/simulator/status-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-referral/route.js#L5).
 
 ### Pridobitev seznama statusov
-Primer pridobivanja seznama statusov naročilnice lahko razberete v programski kodi, kjer je implementirana spletna metoda [POST]
+Metode ze pridobitev seznama statusov za naročilnice so implementirane v [/app/api/simulator/status-list-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-list-referral/route.js#L5).
 
 ### Pridobitev izvida
 Primer pridobivanja izvida je še v delu, zato trenutno še ni na voljo.
