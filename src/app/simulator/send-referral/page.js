@@ -23,7 +23,7 @@ export default function Home() {
   const [patientName, setPatientName] = useState("Kate")
   const [patientDateOfBirth, setPatientDateOfBirth] = useState("1975-11-19")
   const [patientYearOfBirth, setPatientYearOfBirth] = useState("")
-  const [priority, setPriority] = useState("OB")
+  const [priority, setPriority] = useState(1)
   const [referredByDoctorUniquifier, setReferredByDoctorUniquifier] = useState("123456")
   const [referredByDoctorSurname, setReferredByDoctorSurname] = useState("Dotorevski")
   const [referredByDoctorName, setReferredByDoctorName] = useState("Marija")
@@ -214,9 +214,9 @@ export default function Home() {
             <Divider />
             <CardBody>
               <ButtonGroup fullWidth>
-                <Button variant={priority === "OB" ? "solid" : "bordered"} onPress={e => { setPriority("OB") }}>Normalno</Button>
-                <Button variant={priority === "NU" ? "solid" : "bordered"} onPress={e => { setPriority("NU") }}>Nujno</Button>
-                <Button variant={priority === "ZR" ? "solid" : "bordered"} onPress={e => { setPriority("ZR") }}>Zaledeneli rez</Button>
+                <Button variant={priority === 1 ? "solid" : "bordered"} onPress={e => { setPriority(1) }}>Normalno</Button>
+                <Button variant={priority === 2 ? "solid" : "bordered"} onPress={e => { setPriority(2) }}>Nujno</Button>
+                <Button variant={priority === 3 ? "solid" : "bordered"} onPress={e => { setPriority(3) }}>Zaledeneli rez</Button>
               </ButtonGroup>
             </CardBody>
           </Card>
