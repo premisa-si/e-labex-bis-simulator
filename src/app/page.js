@@ -79,6 +79,18 @@ export default function Home() {
         </a>
 
         <a
+          href="/simulator/labels-referral-details"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Nalepke
+          </h2>
+          <p>Pridobite nalepke po ID naročilnice.</p>
+        </a>
+
+        <a
           href="/simulator/status-list-referral"
           className={styles.card}
           target="_blank"
