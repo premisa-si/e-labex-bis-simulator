@@ -12,13 +12,16 @@ Metode za pošiljanje so implementirane v [/app/api/simulator/send-referral/rout
 ### Pridobitev statusa
 Metode ze pridobitev statusa naročilnice po ID ali vaši interni številki (BIS referenca) so implementirane v [/app/api/simulator/status-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-referral/route.js#L5).
 
+### Nalepke
+Metode za pridobitev podatkov o nalepkah so implementirane v [/app/api/simulator/labels-referral-details/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/labels-referral-details/route.js#L5).
+
 ### Pridobitev seznama statusov
 Metode ze pridobitev seznama statusov za naročilnice so implementirane v [/app/api/simulator/status-list-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-list-referral/route.js#L5).
 
 ### Pridobitev izvida
 Primer pridobivanja izvida je še v delu, zato trenutno še ni na voljo.
 
-# For internal purposes
+# For internal purpose ONLY
 
 ## How to deploy on Windows Server/IIS
 Everything is ready to deploy the app on Windows Server 2019 with IIS. Just do the following: 
