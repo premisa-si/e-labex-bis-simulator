@@ -67,6 +67,18 @@ export default function Home() {
         </a>
 
         <a
+          href="/simulator/image-referral"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Slika
+          </h2>
+          <p>Pridobite sliko naročilnice po ID.</p>
+        </a>
+
+        <a
           href="/simulator/status-referral"
           className={styles.card}
           target="_blank"
@@ -75,7 +87,7 @@ export default function Home() {
           <h2>
             Status
           </h2>
-          <p>Pridobite status naročilnice po ID ali po vaši interni številki (BIS referenca).</p>
+          <p>Pridobite status naročilnice po ID ali po BIS številki naročilnice.</p>
         </a>
 
         <a

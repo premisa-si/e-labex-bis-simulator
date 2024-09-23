@@ -17,21 +17,20 @@ export default function Home() {
   const [apiSecret, setApiSecret] = useState("1234")
 
   const [referralId, setReferralId] = useState("");
-  const [correlationId, setCorrelationId] = useState("");
   const [response, setResponse] = useState(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const onStatusRetrieve = async payload => {
+  const onImageRetrieve = async payload => {
     console.log('payload:', payload)
     try {
-      const response = await fetch("/api/simulator/status-referral", {
+      const response = await fetch("/api/simulator/image-referral", {
         method: "POST",
         body: JSON.stringify(payload),
       })
       if (response.ok) {
         // If response is in the 200-299 range
         const data = await response.json()
-        setResponse({ status: response.status, message: 'Status', data: { ...data.data } })
+        setResponse({ status: response.status, message: 'Image', data: { ...data.data } })
       } else {
         // If response is 4xx or 5xx
         const errorData = await response.text();
@@ -50,7 +49,7 @@ export default function Home() {
     <div>
       <div className="container mx-auto">
         <p className="text-center text-sm md:text-base">
-          Status Labex e-naročilnice
+          Slika Labex e-naročilnice
         </p>
         <form>
           <Card>
@@ -158,7 +157,7 @@ export default function Home() {
             </CardBody>
           </Card>
           <Spacer y={1} />
-          <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve(
+          <Button type="button" color="primary" size="lg" onClick={event => onImageRetrieve(
             {
               apiUrl: apiUrl, apiSecret: apiSecret
               , sender: {
@@ -172,39 +171,6 @@ export default function Home() {
               payload: { referralId: referralId || '' }
             })}>Poizvedi</Button>
           <Spacer y={8} />
-          <Card>
-            <CardHeader>
-
-            </CardHeader>
-            <Divider />
-            <CardBody>
-              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
-                <Input
-                  clearable
-                  underlined
-                  fullWidth
-                  label="BIS številka naročilnice"
-                  variant="flat"
-                  value={correlationId}
-                  onValueChange={setCorrelationId}
-                />
-              </div>
-            </CardBody>
-          </Card>
-          <Spacer y={1} />
-          <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve(
-            {
-              apiUrl: apiUrl, apiSecret: apiSecret
-              , sender: {
-                apiKey: apiKey,
-                businessUnit: businessUnit,
-                userName: userName
-              }
-              , user: {
-                fullName: fullName
-              },
-              payload: { correlationId: correlationId || '' }
-            })}>Poizvedi</Button>
         </form>
       </div>
       <Modal

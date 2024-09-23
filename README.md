@@ -9,8 +9,11 @@ Metode za podpisovanje zahtevkov so implementirane v [/app/api/helpers.js](https
 ### Pošiljanje naročilnice
 Metode za pošiljanje so implementirane v [/app/api/simulator/send-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/send-referral/route.js#L5).
 
+### Pridobitev slike
+Metode ze pridobitev slike naročilnice po ID so implementirane v [/app/api/simulator/image-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/image-referral/route.js#L5).
+
 ### Pridobitev statusa
-Metode ze pridobitev statusa naročilnice po ID ali vaši interni številki (BIS referenca) so implementirane v [/app/api/simulator/status-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-referral/route.js#L5).
+Metode ze pridobitev statusa naročilnice po ID ali po BIS številki naročilnice so implementirane v [/app/api/simulator/status-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-referral/route.js#L5).
 
 ### Nalepke
 Metode za pridobitev podatkov o nalepkah so implementirane v [/app/api/simulator/labels-referral-details/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/labels-referral-details/route.js#L5).
