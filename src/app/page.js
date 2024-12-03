@@ -38,7 +38,7 @@ export default function Home() {
               height={24}
               priority
             />
-          </a>          
+          </a>
         </div>
       </div>
 
@@ -127,7 +127,20 @@ export default function Home() {
             Pridobite vse izvide za naročilnico.
           </p>
         </a>
+
+        <a
+          href="/labex-simulator/labex-actions"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Labex ukazi
+          </h2>
+          <p>Simulirajte akcije v Labex-u.</p>
+        </a>        
       </div>
+
     </main>
   )
 }
