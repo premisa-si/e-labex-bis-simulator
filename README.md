@@ -21,6 +21,8 @@ Metode za pridobitev podatkov o nalepkah so implementirane v [/app/api/simulator
 ### Pridobitev seznama statusov
 Metode ze pridobitev seznama naročilnic, ki se jim je spremenil status na določen dan (ali pa so bile na ta dan poslane v Labex), so implementirane v [/app/api/simulator/status-list-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-list-referral/route.js#L5).
 
+Pomembno: `Če ne vnesete vrednosti, boste pridobili seznam vseh statusov za plačnika. Status bo vseboval tudi BusinessUnit, ki ga nato uporabite pri pridobivanju izvida.`
+
 ### Pridobitev izvida
 Metode ze pridobitev izvidov naročilnice po ID so implementirane v [/app/api/simulator/medical-reports-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/medical-reports-referral/route.js#L5).
 

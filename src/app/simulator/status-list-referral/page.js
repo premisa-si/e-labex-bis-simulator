@@ -1,7 +1,7 @@
 "use client"
 
 import styles from './page.module.css'
-import { Card, CardHeader, CardBody, Spacer, Divider } from '@nextui-org/react'
+import { Card, CardHeader, CardBody, Spacer, Divider, Tooltip } from '@nextui-org/react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react"
 
 import { Button } from '@nextui-org/button'
@@ -107,11 +107,14 @@ export default function Home() {
                   clearable
                   underlined
                   fullWidth
-                  label="BPI"
+                  label="Business Unit"
                   variant="flat"
                   value={businessUnit}
                   onValueChange={setBusinessUnit}
                 />
+                <Tooltip content="Če ne vnesete vrednosti, boste pridobili seznam vseh statusov za plačnika">
+                  <span style={{ cursor: 'pointer' }}>ℹ️</span>
+                </Tooltip>
                 <Spacer y={1} />
                 <Input
                   clearable

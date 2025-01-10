@@ -105,7 +105,7 @@ export default function Home() {
                   clearable
                   underlined
                   fullWidth
-                  label="BPI"
+                  label="Business Unit"
                   variant="flat"
                   value={businessUnit}
                   onValueChange={setBusinessUnit}
