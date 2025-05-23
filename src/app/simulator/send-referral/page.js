@@ -24,6 +24,9 @@ export default function Home() {
   const [patientName, setPatientName] = useState("Elizabeta Olivija")
   const [patientDateOfBirth, setPatientDateOfBirth] = useState("1950-10-27")
   const [patientYearOfBirth, setPatientYearOfBirth] = useState("")
+  const [patientZip, setPatientZip] = useState("1000")
+  const [patientCity, setPatientCity] = useState("Ljubljana")
+  const [patientAddress, setPatientAddress] = useState("Simulatorska 123")
   const [patientCountry, setPatientCountry] = useState("Slovenija")
   const [patientCountryCode, setPatientCountryCode] = useState("705")
   const [patientSex, setPatientSex] = useState(0)
@@ -94,6 +97,9 @@ export default function Home() {
                   name: patientName,
                   dateOfBirth: patientDateOfBirth === "" ? null : patientDateOfBirth,
                   yearOfBirth: patientYearOfBirth === "" ? null : patientYearOfBirth,
+                  zip: patientZip === "" ? null : patientZip,
+                  city: patientCity === "" ? null : patientCity,
+                  adress: patientAddress === "" ? null : patientAddress,
                   country: patientCountry === "" ? null : patientCountry,
                   countryCode: patientCountryCode === "" ? null : patientCountryCode,
                   isSexMale: patientSex
@@ -312,6 +318,42 @@ export default function Home() {
                   onValueChange={setPatientYearOfBirth}
                 />
               </div>
+              <Spacer y={1} />
+               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
+                <Input
+                  name="patientZip"
+                  type="number"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Poštna številka"
+                  variant="flat"
+                  value={patientZip}
+                  onValueChange={setPatientZip}
+                />
+                <Spacer y={1} />
+                <Input
+                  name="patientCity"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Kraj"
+                  variant="flat"
+                  value={patientCity}
+                  onValueChange={setPatientCity}
+                />
+                <Spacer y={1} />
+                <Input
+                  name="patientAddress"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Naslov"
+                  variant="flat"
+                  value={patientAddress}
+                  onValueChange={setPatientAddress}
+                />
+              </div>             
               <Spacer y={1} />
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
                 <Input
