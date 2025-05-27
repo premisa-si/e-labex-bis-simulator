@@ -19,10 +19,17 @@ export default function Home() {
   const [correlationId, setCorrelationId] = useState("bis-ref-1")
   const [correlationInfo, setCorrelationInfo] = useState("Opis za bis-ref-1")
   const [patientKzz, setPatientKzz] = useState("012345678")
+  const [patientBisId, setPatientBisId] = useState("")
   const [patientSurname, setPatientSurname] = useState("Celarc")
   const [patientName, setPatientName] = useState("Elizabeta Olivija")
   const [patientDateOfBirth, setPatientDateOfBirth] = useState("1950-10-27")
   const [patientYearOfBirth, setPatientYearOfBirth] = useState("")
+  const [patientZip, setPatientZip] = useState("1000")
+  const [patientCity, setPatientCity] = useState("Ljubljana")
+  const [patientAddress, setPatientAddress] = useState("Simulatorska 123")
+  const [patientCountry, setPatientCountry] = useState("Slovenija")
+  const [patientCountryCode, setPatientCountryCode] = useState("705")
+  const [patientSex, setPatientSex] = useState(0)
   const [priority, setPriority] = useState(1)
   const [referredByDoctorUniquifier, setReferredByDoctorUniquifier] = useState("123456")
   const [referredByDoctorSurname, setReferredByDoctorSurname] = useState("Al Mawed")
@@ -85,10 +92,17 @@ export default function Home() {
                 priority: priority,
                 patient: {
                   uniquifier: patientKzz,
+                  bisId: patientBisId === "" ? null : patientBisId,
                   surname: patientSurname,
                   name: patientName,
                   dateOfBirth: patientDateOfBirth === "" ? null : patientDateOfBirth,
-                  yearOfBirth: patientYearOfBirth === "" ? null : patientYearOfBirth
+                  yearOfBirth: patientYearOfBirth === "" ? null : patientYearOfBirth,
+                  zip: patientZip === "" ? null : patientZip,
+                  city: patientCity === "" ? null : patientCity,
+                  adress: patientAddress === "" ? null : patientAddress,
+                  country: patientCountry === "" ? null : patientCountry,
+                  countryCode: patientCountryCode === "" ? null : patientCountryCode,
+                  isSexMale: patientSex
                 },
                 referredByDoctor: {
                   uniquifier: referredByDoctorUniquifier,
@@ -238,6 +252,17 @@ export default function Home() {
                   value={patientKzz}
                   onValueChange={setPatientKzz}
                 />
+                <Spacer y={1} />
+                <Input
+                  name="patientBisId"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="BIS Id"
+                  variant="flat"
+                  value={patientBisId}
+                  onValueChange={setPatientBisId}
+                />
               </div>
               <Spacer y={1} />
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
@@ -262,6 +287,11 @@ export default function Home() {
                   value={patientName}
                   onValueChange={setPatientName}
                 />
+                <Spacer y={1} />
+                <ButtonGroup fullWidth>
+                  <Button variant={patientSex === 0 ? "solid" : "bordered"} onPress={e => { setPatientSex(0) }}>Ženska</Button>
+                  <Button variant={patientSex === 1 ? "solid" : "bordered"} onPress={e => { setPatientSex(1) }}>Moški</Button>
+                </ButtonGroup>
               </div>
               <Spacer y={1} />
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
@@ -278,6 +308,7 @@ export default function Home() {
                 <Spacer y={1} />
                 <Input
                   name="patientYearOfBirth"
+                  type="number"
                   clearable
                   underlined
                   fullWidth
@@ -285,6 +316,67 @@ export default function Home() {
                   variant="flat"
                   value={patientYearOfBirth}
                   onValueChange={setPatientYearOfBirth}
+                />
+              </div>
+              <Spacer y={1} />
+               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
+                <Input
+                  name="patientZip"
+                  type="number"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Poštna številka"
+                  variant="flat"
+                  value={patientZip}
+                  onValueChange={setPatientZip}
+                />
+                <Spacer y={1} />
+                <Input
+                  name="patientCity"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Kraj"
+                  variant="flat"
+                  value={patientCity}
+                  onValueChange={setPatientCity}
+                />
+                <Spacer y={1} />
+                <Input
+                  name="patientAddress"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Naslov"
+                  variant="flat"
+                  value={patientAddress}
+                  onValueChange={setPatientAddress}
+                />
+              </div>             
+              <Spacer y={1} />
+              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
+                <Input
+                  name="patientCountry"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Država"
+                  variant="flat"
+                  value={patientCountry}
+                  onValueChange={setPatientCountry}
+                />
+                <Spacer y={1} />
+                <Input
+                  name="patientCountryCode"
+                  type="number"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Država ISO N3"
+                  variant="flat"
+                  value={patientCountryCode}
+                  onValueChange={setPatientCountryCode}
                 />
               </div>
             </CardBody>
