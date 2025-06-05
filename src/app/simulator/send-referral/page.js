@@ -30,6 +30,7 @@ export default function Home() {
   const [patientCountry, setPatientCountry] = useState("Slovenija")
   const [patientCountryCode, setPatientCountryCode] = useState("705")
   const [patientSex, setPatientSex] = useState(0)
+  const [patientIsDeceased, setPatientIsDeceased] = useState(false)
   const [priority, setPriority] = useState(1)
   const [referredByDoctorUniquifier, setReferredByDoctorUniquifier] = useState("123456")
   const [referredByDoctorSurname, setReferredByDoctorSurname] = useState("Al Mawed")
@@ -102,7 +103,8 @@ export default function Home() {
                   adress: patientAddress === "" ? null : patientAddress,
                   country: patientCountry === "" ? null : patientCountry,
                   countryCode: patientCountryCode === "" ? null : patientCountryCode,
-                  isSexMale: patientSex
+                  isSexMale: patientSex,
+                  isDeceased: patientIsDeceased
                 },
                 referredByDoctor: {
                   uniquifier: referredByDoctorUniquifier,
@@ -263,6 +265,11 @@ export default function Home() {
                   value={patientBisId}
                   onValueChange={setPatientBisId}
                 />
+                <Spacer y={1} />
+                <ButtonGroup fullWidth>
+                  <Button variant={patientIsDeceased === false ? "solid" : "bordered"} onPress={e => { setPatientIsDeceased(false) }}>Živ</Button>
+                  <Button variant={patientIsDeceased === true ? "solid" : "bordered"} onPress={e => { setPatientIsDeceased(true) }}>Pokojnik</Button>
+                </ButtonGroup>
               </div>
               <Spacer y={1} />
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
