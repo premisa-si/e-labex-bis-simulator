@@ -18,6 +18,7 @@ export default function Home() {
   const [apiSecret, setApiSecret] = useState("1234")
   const [correlationId, setCorrelationId] = useState("bis-ref-1")
   const [correlationInfo, setCorrelationInfo] = useState("Opis za bis-ref-1")
+  const [idQuestionnaire, setIdQuestionnaire] = useState(null)
   const [patientKzz, setPatientKzz] = useState("012345678")
   const [patientBisId, setPatientBisId] = useState("")
   const [patientSurname, setPatientSurname] = useState("Celarc")
@@ -90,6 +91,7 @@ export default function Home() {
               , payload: {
                 correlationId: correlationId,
                 correlationInfo: correlationInfo,
+                idQuestionnaire: idQuestionnaire,
                 priority: priority,
                 patient: {
                   uniquifier: patientKzz,
@@ -218,6 +220,17 @@ export default function Home() {
                   variant="flat"
                   value={correlationInfo}
                   onValueChange={setCorrelationInfo}
+                />
+                <Spacer y={1} />
+                <Input
+                  type="number"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Številka vprašalnika"
+                  variant="flat"
+                  value={idQuestionnaire}
+                  onValueChange={setIdQuestionnaire}
                 />
               </div>
             </CardBody>
