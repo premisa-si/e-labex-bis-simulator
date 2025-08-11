@@ -9,6 +9,11 @@ export async function POST(request) {
   const sender = body.sender
 
   console.log('POST with body:', body)
+  console.log('idQuestionnaire:', body.payload.idQuestionnaire)
+  if (body.payload.idQuestionnaire === null || body.payload.idQuestionnaire === '')
+    delete body.payload.idQuestionnaire
+
+  console.log('idQuestionnaire-after:', body.payload.idQuestionnaire)
 
   //Remove apiSecret and apiUrl as both are here just
   //to make it easier testing by end user.

@@ -18,7 +18,7 @@ export default function Home() {
   const [apiSecret, setApiSecret] = useState("1234")
   const [correlationId, setCorrelationId] = useState("bis-ref-1")
   const [correlationInfo, setCorrelationInfo] = useState("Opis za bis-ref-1")
-  const [idQuestionnaire, setIdQuestionnaire] = useState(null)
+  const [idQuestionnaire, setIdQuestionnaire] = useState(1) //DG, 9.8.2025: let's default to 1 which is always present. useState(null)
   const [patientKzz, setPatientKzz] = useState("012345678")
   const [patientBisId, setPatientBisId] = useState("")
   const [patientSurname, setPatientSurname] = useState("Celarc")
