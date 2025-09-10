@@ -36,10 +36,12 @@ export default function Home() {
   const [referredByDoctorUniquifier, setReferredByDoctorUniquifier] = useState("123456")
   const [referredByDoctorSurname, setReferredByDoctorSurname] = useState("Al Mawed")
   const [referredByDoctorName, setReferredByDoctorName] = useState("Said")
+  const [referredByDoctorPhoneNumber, setReferredByDoctorPhoneNumber] = useState(null)
   const [samplesTakenByDoctorUniquifier, setSamplesTakenByDoctorUniquifier] = useState("123457")
   const [samplesTakenByDoctorSurname, setSamplesTakenByDoctorSurname] = useState("Ambrožič")
   const [samplesTakenByDoctorName, setSamplesTakenByDoctorName] = useState("Miha")
-  const [clinicalDataAndDiagnosis, setClinicalDataAndDiagnosis] = useState("")
+  const [samplesTakenByDoctorPhoneNumber, setSamplesTakenByDoctorPhoneNumber] = useState("")
+  const [clinicalDataAndDiagnosis, setClinicalDataAndDiagnosis] = useState(null)
 
   const [response, setResponse] = useState(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -111,12 +113,14 @@ export default function Home() {
                 referredByDoctor: {
                   uniquifier: referredByDoctorUniquifier,
                   surname: referredByDoctorSurname,
-                  name: referredByDoctorName
+                  name: referredByDoctorName,
+                  phoneNumber: referredByDoctorPhoneNumber
                 },
                 samplesTakenByDoctor: {
                   uniquifier: samplesTakenByDoctorUniquifier,
                   surname: samplesTakenByDoctorSurname,
-                  name: samplesTakenByDoctorName
+                  name: samplesTakenByDoctorName,
+                  phoneNumber: samplesTakenByDoctorPhoneNumber
                 },
                 clinicalDataAndDiagnosis: clinicalDataAndDiagnosis
               }
@@ -442,6 +446,17 @@ export default function Home() {
                     value={referredByDoctorName}
                     onValueChange={setReferredByDoctorName}
                   />
+                  <Spacer y={1} />
+                  <Input
+                    name="referredByDoctorPhoneNumber"
+                    clearable
+                    underlined
+                    fullWidth
+                    label="Telefon"
+                    variant="flat"
+                    value={referredByDoctorPhoneNumber}
+                    onValueChange={setReferredByDoctorPhoneNumber}
+                  />
                 </div>
               </CardBody>
             </Card>
@@ -483,6 +498,17 @@ export default function Home() {
                     variant="flat"
                     value={samplesTakenByDoctorName}
                     onValueChange={setSamplesTakenByDoctorName}
+                  />
+                  <Spacer y={1} />
+                  <Input
+                    name="samplesTakenByDoctorPhoneNumber"
+                    clearable
+                    underlined
+                    fullWidth
+                    label="Telefon"
+                    variant="flat"
+                    value={samplesTakenByDoctorPhoneNumber}
+                    onValueChange={setSamplesTakenByDoctorPhoneNumber}
                   />
                 </div>
               </CardBody>
