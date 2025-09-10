@@ -49,7 +49,7 @@ export default function Home() {
     <div>
       <div className="container mx-auto">
         <p className="text-center text-sm md:text-base">
-          Slika Labex e-naročilnice
+          Izvid(i) Labex e-naročilnice
         </p>
         <form>
           <Card>
