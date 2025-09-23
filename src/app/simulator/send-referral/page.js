@@ -25,6 +25,8 @@ export default function Home() {
   const [patientName, setPatientName] = useState("Elizabeta Olivija")
   const [patientDateOfBirth, setPatientDateOfBirth] = useState("1950-10-27")
   const [patientYearOfBirth, setPatientYearOfBirth] = useState("")
+  const [patientDateOfDeath1, setPatientDateOfDeath1] = useState("")
+  const [patientDateOfDeath2, setPatientDateOfDeath2] = useState("")
   const [patientZip, setPatientZip] = useState("1000")
   const [patientCity, setPatientCity] = useState("Ljubljana")
   const [patientAddress, setPatientAddress] = useState("Simulatorska 123")
@@ -102,6 +104,8 @@ export default function Home() {
                   name: patientName,
                   dateOfBirth: patientDateOfBirth === "" ? null : patientDateOfBirth,
                   yearOfBirth: patientYearOfBirth === "" ? null : patientYearOfBirth,
+                  dateDeathFrom: patientDateOfDeath1 === "" ? null : patientDateOfDeath1,
+                  dateDeathTo: patientDateOfDeath2 === "" ? null : patientDateOfDeath2,
                   zip: patientZip === "" ? null : patientZip,
                   city: patientCity === "" ? null : patientCity,
                   adress: patientAddress === "" ? null : patientAddress,
@@ -340,6 +344,28 @@ export default function Home() {
                   variant="flat"
                   value={patientYearOfBirth}
                   onValueChange={setPatientYearOfBirth}
+                />
+                <Spacer y={1} />
+                <Input
+                  name="patientDateOfDeath1"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Čas smrti (YYYY-MM-DDTHH:mm)"
+                  variant="flat"
+                  value={patientDateOfDeath1}
+                  onValueChange={setPatientDateOfDeath1}
+                />
+                <Spacer y={1} />
+                <Input
+                  name="patientDateOfDeath2"
+                  clearable
+                  underlined
+                  fullWidth
+                  label="Čas smrti do (YYYY-MM-DDTHH:mm)"
+                  variant="flat"
+                  value={patientDateOfDeath2}
+                  onValueChange={setPatientDateOfDeath2}
                 />
               </div>
               <Spacer y={1} />
