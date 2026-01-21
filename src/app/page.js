@@ -115,6 +115,18 @@ export default function Home() {
         </a>
 
         <a
+          href="/simulator/retrieve-token"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Pridobi žeton
+          </h2>
+          <p>Pridobite žeton za dostop do uporabniškega vmesnika.</p>
+        </a>
+
+        <a
           href="/simulator/medical-reports-referral"
           className={styles.card}
           target="_blank"
