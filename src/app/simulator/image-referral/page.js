@@ -189,11 +189,61 @@ export default function Home() {
               <ModalBody>
                 {response && (
                   response.status >= 200 && response.status < 300 ? (
-                    // Successful response
-                    <div style={{ overflow: 'auto', maxHeight: '400px' }}>
-                      <pre style={{ color: 'green' }}>
-                        {JSON.stringify(response.data, null, 2)}
-                      </pre>
+                    // Successful response - show PDF and image
+                    <div style={{ overflow: 'auto', maxHeight: '600px' }}>
+                      <div className="flex flex-col gap-4">
+                        {/* PDF */}
+                        {response.data.pdf && (
+                          <div>
+                            <Button 
+                              color="secondary" 
+                              size="sm" 
+                              className="mb-2"
+                              onPress={() => {
+                                const link = document.createElement('a');
+                                link.href = `data:application/pdf;base64,${response.data.pdf}`;
+                                link.download = `labex-narocilnica-${referralId}.pdf`;
+                                link.click();
+                              }}
+                            >
+                              Prenesi PDF
+                            </Button>
+                            <iframe
+                              src={`data:application/pdf;base64,${response.data.pdf}`}
+                              width="100%"
+                              height="400px"
+                              style={{ border: '1px solid #ccc' }}
+                              title="Referral PDF"
+                            />
+                          </div>
+                        )}
+                        
+                        {/* PNG Image */}
+                        {response.data.image && (
+                          <div>
+                            <Button 
+                              color="secondary" 
+                              size="sm" 
+                              className="mb-2"
+                              onPress={() => {
+                                const link = document.createElement('a');
+                                link.href = response.data.image;
+                                link.download = `labex-narocilnica-${referralId}.png`;
+                                link.click();
+                              }}
+                            >
+                              Prenesi PNG
+                            </Button>
+                            <div style={{ maxHeight: '300px', overflow: 'auto', border: '1px solid #ccc' }}>
+                              <img 
+                                src={response.data.image} 
+                                alt="Referral" 
+                                style={{ maxWidth: '100%' }}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ) : (
                     // Error response
@@ -212,7 +262,7 @@ export default function Home() {
                 )}
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" variant="light" onPress={onClose}>
+                <Button color="primary" size="lg" onPress={onClose}>
                   Zapri
                 </Button>
               </ModalFooter>

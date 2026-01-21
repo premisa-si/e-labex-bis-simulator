@@ -13,7 +13,7 @@ npm run build
   - .next folder
   - node_modules folder (keep in mind this is quite large folder, so copying might take some time)
 6. Create new web site rather than new app under default site
-7. Ensure ApplicationPoolIdentity (IIS_WPG, IIS_IUSR groups have read and write permissions on inetpub/wwwroot/e-labex-bis-simulator directory)
+7. Ensure ApplicationPoolIdentity (IIS_WPG and/or IIS_IUSR groups have read and write permissions on inetpub/wwwroot/e-labex-bis-simulator directory)
 
 
 ## How to run app localy
