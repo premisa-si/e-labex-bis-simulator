@@ -19,7 +19,7 @@ export async function POST(request) {
   delete body.sender
 
   const method = 'POST'
-  const endpoint = `/api/external/token`
+  const endpoint = `/api/external/referral-list`
   const address = `${apiUrl}${endpoint}`
   console.log(`${method} to address ${address}`)
 

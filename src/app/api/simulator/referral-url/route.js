@@ -8,6 +8,7 @@ export async function POST(request) {
   const apiSecret = body.apiSecret
   const sender = body.sender
   const user = body.user
+  const referralId = body.referralId
 
   console.log('Body:', body)
 
@@ -17,13 +18,15 @@ export async function POST(request) {
   delete body.apiSecret
   delete body.apiUrl
   delete body.sender
+  delete body.referralId
 
   const method = 'POST'
-  const endpoint = `/api/external/token`
+  const endpoint = `/api/external/referral/${referralId}`
   const address = `${apiUrl}${endpoint}`
   console.log(`${method} to address ${address}`)
 
   const requestBody = JSON.stringify({
+    referralId: referralId,
     user: { fullName: user.fullName }
   })
 

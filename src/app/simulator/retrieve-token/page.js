@@ -3,6 +3,7 @@
 import styles from './page.module.css'
 import { Card, CardHeader, CardBody, Spacer, Divider } from '@nextui-org/react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react"
+import { Tabs, Tab } from "@nextui-org/react"
 
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
@@ -29,11 +30,11 @@ export default function Home() {
       if (response.ok) {
         // If response is in the 200-299 range
         const data = await response.json()
-        setResponse({ status: response.status, message: 'Token', data: { ...data.data } })
+        setResponse({ status: response.status, message: 'Token', data: { ...data.data }, rawData: data })
       } else {
         // If response is 4xx or 5xx
         const errorData = await response.text();
-        setResponse({ status: response.status, message: 'Strežnik je odgovoril z napako', data: errorData });
+        setResponse({ status: response.status, message: 'Strežnik je odgovoril z napako', data: errorData, rawData: errorData });
       }
     }
     catch (error) {
@@ -48,7 +49,7 @@ export default function Home() {
     <div>
       <div className="container mx-auto">
         <p className="text-center text-sm md:text-base">
-          Pridobi Token
+          Žeton
         </p>
         <form>
           <Card>
@@ -165,77 +166,127 @@ export default function Home() {
               </ModalHeader>
               <ModalBody>
                 {response && (
-                  response.status >= 200 && response.status < 300 ? (
-                    // Successful response - show token
-                    <div style={{ overflow: 'auto', maxHeight: '600px' }}>
-                      <div className="flex flex-col gap-4">
-                        {response.data.token && (
-                          <>
-                            <div>
-                              <h3 className="font-bold mb-2">Žeton</h3>
-                              <pre style={{ 
-                                wordWrap: 'break-word', 
-                                whiteSpace: 'pre-wrap',
-                                backgroundColor: '#f5f5f5',
-                                padding: '10px',
-                                borderRadius: '5px',
-                                border: '1px solid #ccc'
-                              }}>
-                                {response.data.token.token}
-                              </pre>
+                  <Tabs aria-label="Response tabs" color="primary">
+                    {/* Tab 1: Preview */}
+                    <Tab key="preview" title="Predogled">
+                      {response.status >= 200 && response.status < 300 ? (
+                        // Successful response - show token
+                        <div style={{ overflow: 'auto', maxHeight: '600px' }}>
+                          {response.data.token && (
+                            <div className="flex justify-end mb-2">
+                              <Button 
+                                color="secondary" 
+                                variant="light"
+                                size="sm"
+                                onPress={() => {
+                                  navigator.clipboard.writeText(response.data.token.token);
+                                }}
+                              >
+                                Kopiraj žeton
+                              </Button>
                             </div>
-                            
-                            <div>
-                              <h3 className="font-bold mb-2">Podatki o žetonu
-                                {(() => {
-                                  const payload = JSON.parse(atob(response.data.token.token.split('.')[1]));
-                                  const expDate = new Date(payload.exp * 1000);
-                                  const now = new Date();
-                                  const diff = expDate - now;
-                                  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                                  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                  const day = String(expDate.getDate()).padStart(2, '0');
-                                  const month = String(expDate.getMonth() + 1).padStart(2, '0');
-                                  const year = expDate.getFullYear();
-                                  const hour = String(expDate.getHours()).padStart(2, '0');
-                                  const minute = String(expDate.getMinutes()).padStart(2, '0');
-                                  const expDateTimeStr = `${day}.${month}.${year} ob ${hour}:${minute}`;
-                                  return ` - poteče ${expDateTimeStr}, to je čez ${days} dni in ${hours} ur.`;
-                                })()}
-                              </h3>
-                              <pre style={{ 
-                                wordWrap: 'break-word', 
-                                whiteSpace: 'pre-wrap',
-                                backgroundColor: '#f5f5f5',
-                                padding: '10px',
-                                borderRadius: '5px',
-                                border: '1px solid #ccc'
-                              }}>
-                                {JSON.stringify(JSON.parse(atob(response.data.token.token.split('.')[1])), null, 2)}
-                              </pre>
-                            </div>
-                          </>
-                        )}
+                          )}
+                          <div className="flex flex-col gap-4">
+                            {response.data.token && (
+                              <>
+                                <div>
+                                  <h3 className="font-bold mb-2">Žeton</h3>
+                                  <pre style={{ 
+                                    wordWrap: 'break-word', 
+                                    whiteSpace: 'pre-wrap',
+                                    backgroundColor: '#f5f5f5',
+                                    padding: '10px',
+                                    borderRadius: '5px',
+                                    border: '1px solid #ccc'
+                                  }}>
+                                    {response.data.token.token}
+                                  </pre>
+                                </div>
+                                
+                                <div>
+                                  <h3 className="font-bold mb-2">Podatki o žetonu
+                                    {(() => {
+                                      const payload = JSON.parse(atob(response.data.token.token.split('.')[1]));
+                                      const expDate = new Date(payload.exp * 1000);
+                                      const now = new Date();
+                                      const diff = expDate - now;
+                                      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                      const day = String(expDate.getDate()).padStart(2, '0');
+                                      const month = String(expDate.getMonth() + 1).padStart(2, '0');
+                                      const year = expDate.getFullYear();
+                                      const hour = String(expDate.getHours()).padStart(2, '0');
+                                      const minute = String(expDate.getMinutes()).padStart(2, '0');
+                                      const expDateTimeStr = `${day}.${month}.${year} ob ${hour}:${minute}`;
+                                      return ` - poteče ${expDateTimeStr}, to je čez ${days} dni in ${hours} ur.`;
+                                    })()}
+                                  </h3>
+                                  <pre style={{ 
+                                    wordWrap: 'break-word', 
+                                    whiteSpace: 'pre-wrap',
+                                    backgroundColor: '#f5f5f5',
+                                    padding: '10px',
+                                    borderRadius: '5px',
+                                    border: '1px solid #ccc'
+                                  }}>
+                                    {JSON.stringify(JSON.parse(atob(response.data.token.token.split('.')[1])), null, 2)}
+                                  </pre>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        // Error response
+                        <div style={{ overflow: 'auto', maxHeight: '400px' }}>
+                          <pre style={{ color: 'red' }}>
+                            Napaka: Status {response.status} - Razlog: {response.message || 'N/A'}
+                            <h2>
+                              Tehnične podrobnosti
+                            </h2>
+                            <p>
+                              {response.data}
+                            </p>
+                          </pre>
+                        </div>
+                      )}
+                    </Tab>
+                    
+                    {/* Tab 2: API Response */}
+                    <Tab key="response" title="API Odgovor">
+                      <div style={{ overflow: 'auto', maxHeight: '600px' }}>
+                        <div className="flex justify-end mb-2">
+                          <Button 
+                            color="secondary" 
+                            variant="light"
+                            size="sm"
+                            onPress={() => {
+                              // Copy FULL response
+                              navigator.clipboard.writeText(JSON.stringify(response.rawData, null, 2));
+                            }}
+                          >
+                            Kopiraj JSON
+                          </Button>
+                        </div>
+                        <div className="mb-2 text-left" style={{ fontSize: '11px', color: '#666' }}>
+                          Pri kopiranju dobite celoten, 'ne-odrezan' JSON odgovor.
+                        </div>
+                        <pre style={{ 
+                          backgroundColor: '#f4f4f4', 
+                          padding: '12px', 
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          overflow: 'auto'
+                        }}>
+                          {JSON.stringify(response.rawData, null, 2)}
+                        </pre>
                       </div>
-                    </div>
-                  ) : (
-                    // Error response
-                    <div style={{ overflow: 'auto', maxHeight: '400px' }}>
-                      <pre style={{ color: 'red' }}>
-                        Napaka: Status {response.status} - Razlog: {response.message || 'N/A'}
-                        <h2>
-                          Tehnične podrobnosti
-                        </h2>
-                        <p>
-                          {response.data}
-                        </p>
-                      </pre>
-                    </div>
-                  )
+                    </Tab>
+                  </Tabs>
                 )}
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" size="lg" onPress={onClose}>
+                <Button color="primary" variant="light" onPress={onClose}>
                   Zapri
                 </Button>
               </ModalFooter>

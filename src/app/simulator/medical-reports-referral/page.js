@@ -3,6 +3,7 @@
 import styles from './page.module.css'
 import { Card, CardHeader, CardBody, Spacer, Divider } from '@nextui-org/react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react"
+import { Tabs, Tab } from "@nextui-org/react"
 
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
@@ -30,11 +31,11 @@ export default function Home() {
       if (response.ok) {
         // If response is in the 200-299 range
         const data = await response.json()
-        setResponse({ status: response.status, message: 'Medical reports', data: { ...data.data } })
+        setResponse({ status: response.status, message: 'Medical reports', data: { ...data.data }, rawData: data })
       } else {
         // If response is 4xx or 5xx
         const errorData = await response.text();
-        setResponse({ status: response.status, message: 'Strežnik je odgovoril z napako', data: errorData });
+        setResponse({ status: response.status, message: 'Strežnik je odgovoril z napako', data: errorData, rawData: errorData });
       }
     }
     catch (error) {
@@ -49,7 +50,7 @@ export default function Home() {
     <div>
       <div className="container mx-auto">
         <p className="text-center text-sm md:text-base">
-          Izvid(i) Labex e-naročilnice
+          Izvidi
         </p>
         <form>
           <Card>
@@ -169,7 +170,7 @@ export default function Home() {
                 fullName: fullName
               },
               payload: { referralId: referralId || '' }
-            })}>Poizvedi</Button>
+            })}>Pridobi izvide</Button>
           <Spacer y={8} />
         </form>
       </div>
@@ -188,27 +189,63 @@ export default function Home() {
               </ModalHeader>
               <ModalBody>
                 {response && (
-                  response.status >= 200 && response.status < 300 ? (
-                    // Successful response
-                    <div style={{ overflow: 'auto', maxHeight: '400px' }}>
-                      <pre style={{ color: 'green' }}>
-                        {JSON.stringify(response.data, null, 2)}
-                      </pre>
-                    </div>
-                  ) : (
-                    // Error response
-                    <div style={{ overflow: 'auto', maxHeight: '400px' }}>
-                      <pre style={{ color: 'red' }}>
-                        Napaka: Status {response.status} - Razlog: {response.message || 'N/A'}
-                        <h2>
-                          Tehnične podrobnosti
-                        </h2>
-                        <p>
-                          {response.data}
-                        </p>
-                      </pre>
-                    </div>
-                  )
+                  <Tabs aria-label="Response tabs" color="primary">
+                    {/* Tab 1: Preview */}
+                    <Tab key="preview" title="Predogled">
+                      {response.status >= 200 && response.status < 300 ? (
+                        // Successful response
+                        <div style={{ overflow: 'auto', maxHeight: '400px' }}>
+                          <pre style={{ color: 'green' }}>
+                            {JSON.stringify(response.data, null, 2)}
+                          </pre>
+                        </div>
+                      ) : (
+                        // Error response
+                        <div style={{ overflow: 'auto', maxHeight: '400px' }}>
+                          <pre style={{ color: 'red' }}>
+                            Napaka: Status {response.status} - Razlog: {response.message || 'N/A'}
+                            <h2>
+                              Tehnične podrobnosti
+                            </h2>
+                            <p>
+                              {response.data}
+                            </p>
+                          </pre>
+                        </div>
+                      )}
+                    </Tab>
+                    
+                    {/* Tab 2: API Response */}
+                    <Tab key="response" title="API Odgovor">
+                      <div style={{ overflow: 'auto', maxHeight: '600px' }}>
+                        <div className="flex justify-end mb-2">
+                          <Button 
+                            color="secondary" 
+                            variant="light"
+                            size="sm"
+                            onPress={() => {
+                              // Copy FULL response
+                              navigator.clipboard.writeText(JSON.stringify(response.rawData, null, 2));
+                            }}
+                          >
+                            Kopiraj JSON
+                          </Button>
+                        </div>
+                        <div className="mb-2 text-left" style={{ fontSize: '11px', color: '#666' }}>
+                          Pri kopiranju dobite celoten, 'ne-odrezan' JSON odgovor.
+                        </div>
+                        <pre style={{ 
+                          backgroundColor: '#f4f4f4', 
+                          padding: '12px', 
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          overflow: 'auto'
+                        }}>
+                          {JSON.stringify(response.rawData, null, 2)}
+                        </pre>
+                      </div>
+                    </Tab>
+                  </Tabs>
                 )}
               </ModalBody>
               <ModalFooter>

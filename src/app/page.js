@@ -61,9 +61,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Pošiljanje
+            Kreiranje
           </h2>
-          <p>Pošljite naročilnico v e-labex.</p>
+          <p>Kreirajte naročilnico.</p>
         </a>
 
         <a
@@ -73,21 +73,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Slika
+            PDF
           </h2>
-          <p>Pridobite sliko naročilnice po ID.</p>
-        </a>
-
-        <a
-          href="/simulator/status-referral"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Status
-          </h2>
-          <p>Pridobite status naročilnice po ID ali po BIS številki naročilnice.</p>
+          <p>Pridobite PDF naročilnice.</p>
         </a>
 
         <a
@@ -99,7 +87,19 @@ export default function Home() {
           <h2>
             Nalepke
           </h2>
-          <p>Pridobite nalepke po ID naročilnice.</p>
+          <p>Pridobite nalepke za vsebnike.</p>
+        </a>
+
+        <a
+          href="/simulator/status-referral"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Status
+          </h2>
+          <p>Pridobite status naročilnice.</p>
         </a>
 
         <a
@@ -109,21 +109,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-            Seznam statusov
+            Spremembe
           </h2>
-          <p>Pridobite seznam statusov za določen dan.</p>
-        </a>
-
-        <a
-          href="/simulator/retrieve-token"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Pridobi žeton
-          </h2>
-          <p>Pridobite žeton za dostop do uporabniškega vmesnika.</p>
+          <p>Pridobite seznam vseh sprememb na naročilnicah.</p>
         </a>
 
         <a
@@ -138,6 +126,43 @@ export default function Home() {
           <p>
             Pridobite vse izvide za naročilnico.
           </p>
+        </a>
+
+
+        <a
+          href="/simulator/referral-url"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Obstoječa naročilnica
+          </h2>
+          <p>Pridobite URL za dostop do naročilnice.</p>
+        </a>
+
+        <a
+          href="/simulator/referral-list"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Seznam naročilnic
+          </h2>
+          <p>Pridobite URL za dostop do seznama naročilnic.</p>
+        </a>
+
+        <a
+          href="/simulator/retrieve-token"
+          className={styles.card}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2>
+            Žeton
+          </h2>
+          <p>Pridobite žeton za dostop do uporabniškega vmesnika.</p>
         </a>
 
         <a

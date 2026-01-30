@@ -3,6 +3,7 @@
 import styles from './page.module.css'
 import { Card, CardHeader, CardBody, Spacer, Divider } from '@nextui-org/react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react"
+import { Tabs, Tab } from "@nextui-org/react"
 
 import { Button } from '@nextui-org/button'
 import { Input } from '@nextui-org/input'
@@ -30,11 +31,11 @@ export default function Home() {
       if (response.ok) {
         // If response is in the 200-299 range
         const data = await response.json()
-        setResponse({ status: response.status, message: 'Image', data: { ...data.data } })
+        setResponse({ status: response.status, message: 'Image', data: { ...data.data }, rawData: data })
       } else {
         // If response is 4xx or 5xx
         const errorData = await response.text();
-        setResponse({ status: response.status, message: 'Strežnik je odgovoril z napako', data: errorData });
+        setResponse({ status: response.status, message: 'Strežnik je odgovoril z napako', data: errorData, rawData: errorData });
       }
     }
     catch (error) {
@@ -49,7 +50,7 @@ export default function Home() {
     <div>
       <div className="container mx-auto">
         <p className="text-center text-sm md:text-base">
-          Slika Labex e-naročilnice
+          PDF naročilnice
         </p>
         <form>
           <Card>
@@ -169,7 +170,7 @@ export default function Home() {
                 fullName: fullName
               },
               payload: { referralId: referralId || '' }
-            })}>Poizvedi</Button>
+            })}>Pridobi PDF</Button>
           <Spacer y={8} />
         </form>
       </div>
@@ -188,81 +189,127 @@ export default function Home() {
               </ModalHeader>
               <ModalBody>
                 {response && (
-                  response.status >= 200 && response.status < 300 ? (
-                    // Successful response - show PDF and image
-                    <div style={{ overflow: 'auto', maxHeight: '600px' }}>
-                      <div className="flex flex-col gap-4">
-                        {/* PDF */}
-                        {response.data.pdf && (
-                          <div>
-                            <Button 
-                              color="secondary" 
-                              size="sm" 
-                              className="mb-2"
-                              onPress={() => {
-                                const link = document.createElement('a');
-                                link.href = `data:application/pdf;base64,${response.data.pdf}`;
-                                link.download = `labex-narocilnica-${referralId}.pdf`;
-                                link.click();
-                              }}
-                            >
-                              Prenesi PDF
-                            </Button>
-                            <iframe
-                              src={`data:application/pdf;base64,${response.data.pdf}`}
-                              width="100%"
-                              height="400px"
-                              style={{ border: '1px solid #ccc' }}
-                              title="Referral PDF"
-                            />
+                  <Tabs aria-label="Response tabs" color="primary">
+                    {/* Tab 1: Preview */}
+                    <Tab key="preview" title="Predogled">
+                      {response.status >= 200 && response.status < 300 ? (
+                        <div style={{ overflow: 'auto', maxHeight: '600px' }}>
+                          <div className="flex flex-col gap-4">
+                            {/* PDF */}
+                            {response.data.pdf && (
+                              <div>
+                                <div className="flex justify-end mb-2">
+                                  <Button 
+                                    color="secondary" 
+                                    variant="light"
+                                    size="sm" 
+                                    onPress={() => {
+                                      const link = document.createElement('a');
+                                      link.href = `data:application/pdf;base64,${response.data.pdf}`;
+                                      link.download = `labex-narocilnica-${referralId}.pdf`;
+                                      link.click();
+                                    }}
+                                  >
+                                    Prenesi PDF
+                                  </Button>
+                                </div>
+                                <iframe
+                                  src={`data:application/pdf;base64,${response.data.pdf}`}
+                                  width="100%"
+                                  height="400px"
+                                  style={{ border: '1px solid #ccc' }}
+                                  title="Referral PDF"
+                                />
+                              </div>
+                            )}
+                            
+                            {/* PNG Image */}
+                            {response.data.image && (
+                              <div>
+                                <div className="flex justify-end mb-2">
+                                  <Button 
+                                    color="secondary" 
+                                    variant="light"
+                                    size="sm" 
+                                    onPress={() => {
+                                      const link = document.createElement('a');
+                                      link.href = response.data.image;
+                                      link.download = `labex-narocilnica-${referralId}.png`;
+                                      link.click();
+                                    }}
+                                  >
+                                    Prenesi PNG
+                                  </Button>
+                                </div>
+                                <div style={{ maxHeight: '300px', overflow: 'auto', border: '1px solid #ccc' }}>
+                                  <img 
+                                    src={response.data.image} 
+                                    alt="Referral" 
+                                    style={{ maxWidth: '100%' }}
+                                  />
+                                </div>
+                              </div>
+                            )}
                           </div>
-                        )}
-                        
-                        {/* PNG Image */}
-                        {response.data.image && (
-                          <div>
-                            <Button 
-                              color="secondary" 
-                              size="sm" 
-                              className="mb-2"
-                              onPress={() => {
-                                const link = document.createElement('a');
-                                link.href = response.data.image;
-                                link.download = `labex-narocilnica-${referralId}.png`;
-                                link.click();
-                              }}
-                            >
-                              Prenesi PNG
-                            </Button>
-                            <div style={{ maxHeight: '300px', overflow: 'auto', border: '1px solid #ccc' }}>
-                              <img 
-                                src={response.data.image} 
-                                alt="Referral" 
-                                style={{ maxWidth: '100%' }}
-                              />
-                            </div>
-                          </div>
-                        )}
+                        </div>
+                      ) : (
+                        <div style={{ overflow: 'auto', maxHeight: '400px' }}>
+                          <pre style={{ color: 'red' }}>
+                            Napaka: Status {response.status} - Razlog: {response.message || 'N/A'}
+                            <h2>
+                              Tehnične podrobnosti
+                            </h2>
+                            <p>
+                              {response.data}
+                            </p>
+                          </pre>
+                        </div>
+                      )}
+                    </Tab>
+                    
+                    {/* Tab 2: API Response */}
+                    <Tab key="response" title="API Odgovor">
+                      <div style={{ overflow: 'auto', maxHeight: '600px' }}>
+                        <div className="flex justify-end mb-2">
+                          <Button 
+                            color="secondary" 
+                            variant="light"
+                            size="sm"
+                            onPress={() => {
+                              // Copy FULL response with complete base64 strings
+                              navigator.clipboard.writeText(JSON.stringify(response.rawData, null, 2));
+                            }}
+                          >
+                            Kopiraj JSON
+                          </Button>
+                        </div>
+                        <div className="mb-2 text-left" style={{ fontSize: '11px', color: '#666' }}>
+                          Pri kopiranju dobite celoten, 'ne-odrezan' JSON odgovor.
+                        </div>
+                        <pre style={{ 
+                          backgroundColor: '#f4f4f4', 
+                          padding: '12px', 
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          overflow: 'auto'
+                        }}>
+                          {JSON.stringify({
+                            ...response.rawData,
+                            data: {
+                              ...response.rawData.data,
+                              // Truncate base64 strings for display only
+                              ...(response.rawData.data?.pdf && { pdf: response.rawData.data.pdf.substring(0, 8) + '...[truncated]' }),
+                              ...(response.rawData.data?.image && { image: response.rawData.data.image.substring(0, 8) + '...[truncated]' })
+                            }
+                          }, null, 2)}
+                        </pre>
                       </div>
-                    </div>
-                  ) : (
-                    // Error response
-                    <div style={{ overflow: 'auto', maxHeight: '400px' }}>
-                      <pre style={{ color: 'red' }}>
-                        Napaka: Status {response.status} - Razlog: {response.message || 'N/A'}
-                        <h2>
-                          Tehnične podrobnosti
-                        </h2>
-                        <p>
-                          {response.data}
-                        </p>
-                      </pre>
-                    </div>
-                  )
+                    </Tab>
+                  </Tabs>
                 )}
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" size="lg" onPress={onClose}>
+                <Button color="primary" variant="light" onPress={onClose}>
                   Zapri
                 </Button>
               </ModalFooter>

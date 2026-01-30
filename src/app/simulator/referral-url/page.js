@@ -1,7 +1,7 @@
 "use client"
 
 import styles from './page.module.css'
-import { Card, CardHeader, CardBody, Spacer, Divider, Tooltip } from '@nextui-org/react'
+import { Card, CardHeader, CardBody, Spacer, Divider } from '@nextui-org/react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react"
 import { Tabs, Tab } from "@nextui-org/react"
 
@@ -13,28 +13,25 @@ export default function Home() {
   const [businessUnit, setBusinessUnit] = useState("654321")
   const [userName, setUserName] = useState("uporabniskoIme")
   const [fullName, setFullName] = useState("Ime Priimek")
+  const [referralId, setReferralId] = useState("")
   const [apiUrl, setApiUrl] = useState("http://localhost:7071")
   const [apiKey, setApiKey] = useState("abcd-1234-defg-5678")
   const [apiSecret, setApiSecret] = useState("1234")
 
-  const currentDate = new Date()
-  // Format the date to yyyy-MM-dd
-  const formattedDate = currentDate.toISOString().split('T')[0]
-  const [statusDate, setStatusDate] = useState(formattedDate)
   const [response, setResponse] = useState(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const onStatusRetrieve = async payload => {
+  const onUrlRetrieve = async payload => {
     console.log('payload:', payload)
     try {
-      const response = await fetch("/api/simulator/status-list-referral", {
+      const response = await fetch("/api/simulator/referral-url", {
         method: "POST",
         body: JSON.stringify(payload),
       })
       if (response.ok) {
         // If response is in the 200-299 range
         const data = await response.json()
-        setResponse({ status: response.status, message: 'Status', data: { ...data.data }, rawData: data })
+        setResponse({ status: response.status, message: 'URL', data: { ...data.data }, rawData: data })
       } else {
         // If response is 4xx or 5xx
         const errorData = await response.text();
@@ -53,7 +50,7 @@ export default function Home() {
     <div>
       <div className="container mx-auto">
         <p className="text-center text-sm md:text-base">
-          Spremembe
+          URL naročilnice
         </p>
         <form>
           <Card>
@@ -113,9 +110,6 @@ export default function Home() {
                   value={businessUnit}
                   onValueChange={setBusinessUnit}
                 />
-                <Tooltip content="Če ne vnesete vrednosti, boste pridobili seznam vseh statusov za plačnika">
-                  <span style={{ cursor: 'pointer' }}>ℹ️</span>
-                </Tooltip>
                 <Spacer y={1} />
                 <Input
                   clearable
@@ -141,43 +135,41 @@ export default function Home() {
 
             </CardBody>
           </Card>
-          <Spacer y={8} />
-
+          <Spacer y={1} />
           <Card>
-            <CardHeader>
-
+            <CardHeader className="text-left text-xl md:text-base font-bold gap-3">
+              Naročilnica
             </CardHeader>
             <Divider />
             <CardBody>
               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
                 <Input
-                  type="date"
                   clearable
                   underlined
                   fullWidth
-                  label="Datum"
+                  label="ID naročilnice"
                   variant="flat"
-                  value={statusDate}
-                  onValueChange={setStatusDate}
+                  type="number"
+                  value={referralId}
+                  onValueChange={setReferralId}
                 />
               </div>
-              <Spacer y={1} />
             </CardBody>
           </Card>
           <Spacer y={1} />
-          <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve(
+          <Button type="button" color="primary" size="lg" onClick={event => onUrlRetrieve(
             {
               apiUrl: apiUrl, apiSecret: apiSecret
               , sender: {
                 apiKey: apiKey,
-                businessUnit: businessUnit,
-                userName: userName
+                businessUnit: businessUnit
               }
               , user: {
+                userName: userName,
                 fullName: fullName
-              },
-              payload: { statusDate: statusDate || '' }
-            })}>Pridobi spremembe</Button>
+              }
+              , referralId: referralId
+            })}>Pridobi URL</Button>
           <Spacer y={8} />
         </form>
       </div>
@@ -200,11 +192,42 @@ export default function Home() {
                     {/* Tab 1: Preview */}
                     <Tab key="preview" title="Predogled">
                       {response.status >= 200 && response.status < 300 ? (
-                        // Successful response
-                        <div style={{ overflow: 'auto', maxHeight: '400px' }}>
-                          <pre style={{ color: 'green' }}>
-                            {JSON.stringify(response.data, null, 2)}
-                          </pre>
+                        // Successful response - show URL
+                        <div style={{ overflow: 'auto', maxHeight: '600px' }}>
+                          {response.data.url && (
+                            <div className="flex justify-end mb-2">
+                              <Button 
+                                color="secondary" 
+                                variant="light"
+                                size="sm"
+                                as="a"
+                                href={response.data.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Odpri URL
+                              </Button>
+                            </div>
+                          )}
+                          <div className="flex flex-col gap-4">
+                            {response.data.url && (
+                              <>
+                                <div>
+                                  <h3 className="font-bold mb-2">URL naročilnice</h3>
+                                  <pre style={{ 
+                                    wordWrap: 'break-word', 
+                                    whiteSpace: 'pre-wrap',
+                                    backgroundColor: '#f5f5f5',
+                                    padding: '10px',
+                                    borderRadius: '5px',
+                                    border: '1px solid #ccc'
+                                  }}>
+                                    {response.data.url}
+                                  </pre>
+                                </div>
+                              </>
+                            )}
+                          </div>
                         </div>
                       ) : (
                         // Error response
