@@ -1,4 +1,4 @@
-# Za BIS/HIs ponudnike
+# Za BIS/HIS ponudnike
 ## Namen aplikacije
 Namen aplikacije je prikazati delujoč primer pošiljanja naročilnice v e-labex.
 
