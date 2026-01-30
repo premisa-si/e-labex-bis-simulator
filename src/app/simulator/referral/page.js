@@ -24,7 +24,7 @@ export default function Home() {
   const onUrlRetrieve = async payload => {
     console.log('payload:', payload)
     try {
-      const response = await fetch("/api/simulator/referral-url", {
+      const response = await fetch("/api/simulator/referral", {
         method: "POST",
         body: JSON.stringify(payload),
       })

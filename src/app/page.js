@@ -130,7 +130,7 @@ export default function Home() {
 
 
         <a
-          href="/simulator/referral-url"
+          href="/simulator/referral"
           className={styles.card}
           target="_blank"
           rel="noopener noreferrer"

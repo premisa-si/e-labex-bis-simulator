@@ -1,4 +1,4 @@
-# For BIS providers
+# Za BIS/HIs ponudnike
 ## Namen aplikacije
 Namen aplikacije je prikazati delujoč primer pošiljanja naročilnice v e-labex.
 
@@ -6,25 +6,34 @@ Namen aplikacije je prikazati delujoč primer pošiljanja naročilnice v e-labex
 ### Podpisovanje zahtevkov
 Metode za podpisovanje zahtevkov so implementirane v [/app/api/helpers.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/helpers.js#L4).
 
-### Pošiljanje naročilnice
+### Kreiranje naročilnice
 Metode za pošiljanje so implementirane v [/app/api/simulator/send-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/send-referral/route.js#L5).
 
-### Pridobitev slike
-Metode ze pridobitev slike naročilnice po ID so implementirane v [/app/api/simulator/image-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/image-referral/route.js#L5).
-
-### Pridobitev statusa
-Metode ze pridobitev statusa naročilnice po ID ali po BIS številki naročilnice so implementirane v [/app/api/simulator/status-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-referral/route.js#L5).
+### Pridobitev PDF
+Metode za pridobitev PDF-ja naročilnice po ID so implementirane v [/app/api/simulator/image-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/image-referral/route.js#L5).
 
 ### Nalepke
 Metode za pridobitev podatkov o nalepkah so implementirane v [/app/api/simulator/labels-referral-details/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/labels-referral-details/route.js#L5).
 
-### Pridobitev seznama statusov
-Metode ze pridobitev seznama naročilnic, ki se jim je spremenil status na določen dan (ali pa so bile na ta dan poslane v Labex), so implementirane v [/app/api/simulator/status-list-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-list-referral/route.js#L5).
+### Status
+Metode za pridobitev statusa naročilnice po ID ali po BIS številki naročilnice so implementirane v [/app/api/simulator/status-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-referral/route.js#L5).
+
+### Spremembe
+Metode za pridobitev seznama naročilnic, ki se jim je spremenil status na določen dan (ali pa so bile na ta dan poslane v Labex), so implementirane v [/app/api/simulator/status-list-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/status-list-referral/route.js#L5).
 
 Pomembno: `Če ne vnesete vrednosti v polje BusinessUnit, boste pridobili seznam vseh statusov za plačnika. Status bo vseboval tudi BusinessUnit, ki ga nato uporabite pri pridobivanju izvida.`
 
-### Pridobitev izvida
-Metode ze pridobitev izvidov naročilnice po ID so implementirane v [/app/api/simulator/medical-reports-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/medical-reports-referral/route.js#L5).
+### Izvidi
+Metode za pridobitev izvidov naročilnice po ID so implementirane v [/app/api/simulator/medical-reports-referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/medical-reports-referral/route.js#L5).
+
+### Obstoječa naročilnica
+Metode za pridobitev url-ja za obstoječo naročilnico so implementirane v [/app/api/simulator/referral/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/referral/route.js#L5).
+
+### Seznam naročilnic
+Metode za pridobitev url-ja za seznam naročilnic so implementirane v [/app/api/simulator/referral-list/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/referral-list/route.js#L5).
+
+### Žeton
+Metode za pridobitev žetona za dostop do uporabniškega vmesnika so implementirane v [/app/api/simulator/retrieve-token/route.js](https://github.com/premisa-si/e-labex-bis-simulator/blob/main/src/app/api/simulator/retrieve-token/route.js#L5).
 
 # Podrobneje o statusu naročilnice
 Naročilnica ima dva tipa statusov. Prvi tip je status naročilnice iz vidika avtorja naročilnice. Temu statusu rečemo "Status naročilnice". Drugi tip je status z vidika obdelave naročilnice v laboratoriju. Temu statusu rečemo "Labex status" oziroma samo "Status".
