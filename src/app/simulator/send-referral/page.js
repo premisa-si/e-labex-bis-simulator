@@ -89,9 +89,6 @@ export default function Home() {
   return (
     <div>
       <div className="container mx-auto">
-        <p className="text-center text-sm md:text-base">
-          Kreiranje naročilnice
-        </p>
         <form
           onSubmit={event => {
             event.preventDefault()
@@ -359,11 +356,11 @@ export default function Home() {
                     Prioriteta
                   </CardHeader>
                   <Divider />
-                  <CardBody>
-                    <div className="flex flex-col gap-2">
-                      <Button fullWidth variant={priority === 1 ? "solid" : "bordered"} onPress={e => { setPriority(1) }}>Normalno</Button>
-                      <Button fullWidth variant={priority === 2 ? "solid" : "bordered"} onPress={e => { setPriority(2) }}>Nujno</Button>
-                      <Button fullWidth variant={priority === 3 ? "solid" : "bordered"} onPress={e => { setPriority(3) }}>Zaled. rez</Button>
+                  <CardBody className="h-full">
+                    <div className="flex flex-col gap-2 flex-1 justify-between">
+                      <Button fullWidth size="sm" variant={priority === 1 ? "solid" : "bordered"} onPress={e => { setPriority(1) }}>Normalno</Button>
+                      <Button fullWidth size="sm" variant={priority === 2 ? "solid" : "bordered"} onPress={e => { setPriority(2) }}>Nujno</Button>
+                      <Button fullWidth size="sm" variant={priority === 3 ? "solid" : "bordered"} onPress={e => { setPriority(3) }}>Zaled. rez</Button>
                     </div>
                   </CardBody>
                 </Card>
@@ -501,16 +498,6 @@ export default function Home() {
                         value={correlationInfo}
                         onValueChange={setCorrelationInfo}
                       />
-                      <Input
-                        type="number"
-                        clearable
-                        underlined
-                        fullWidth
-                        label="Št. vprašalnika"
-                        variant="flat"
-                        value={idQuestionnaire}
-                        onValueChange={setIdQuestionnaire}
-                      />
                     </div>
                   </CardBody>
                 </Card>
@@ -520,7 +507,7 @@ export default function Home() {
                     <Textarea
                       name="clinicalDataAndDiagnosis"
                       minRows={3}
-                      maxRows={5}
+                      maxRows={3}
                       label="Klinični podatki in diagnoze"
                       labelPlacement="inside"
                       value={clinicalDataAndDiagnosis}
@@ -533,7 +520,7 @@ export default function Home() {
                   <CardBody>
                     <Textarea
                       minRows={3}
-                      maxRows={5}
+                      maxRows={3}
                       label="Priloge (Base64)"
                       labelPlacement="inside"
                       value={attachments[0]?.data || ""}
@@ -614,6 +601,15 @@ export default function Home() {
                       value={apiSecret}
                       onValueChange={setApiSecret}
                     />
+                  </div>
+                </CardBody>
+              </Card>
+
+              {/* Other settings */}
+              <Card>
+                <Divider />
+                <CardBody>
+                  <div className="flex flex-col gap-3">
                     <Input
                       clearable
                       underlined
@@ -622,6 +618,16 @@ export default function Home() {
                       variant="flat"
                       value={apiUrl}
                       onValueChange={setApiUrl}
+                    />
+                    <Input
+                      type="number"
+                      clearable
+                      underlined
+                      fullWidth
+                      label="Št. vprašalnika"
+                      variant="flat"
+                      value={idQuestionnaire}
+                      onValueChange={setIdQuestionnaire}
                     />
                   </div>
                 </CardBody>

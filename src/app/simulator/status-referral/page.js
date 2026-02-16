@@ -50,162 +50,161 @@ export default function Home() {
   return (
     <div>
       <div className="container mx-auto">
-        <p className="text-center text-sm md:text-base">
-          Status naročilnice
-        </p>
         <form>
-          <Card>
-            <CardHeader className="text-left text-xl md:text-base font-bold gap-3">
-              API
-            </CardHeader>
-            <Divider />
-            <CardBody>
-              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
-                <Input
-                  clearable
-                  underlined
-                  fullWidth
-                  label="API URL"
-                  variant="flat"
-                  value={apiUrl}
-                  onValueChange={setApiUrl}
-                />
-                <Spacer y={1} />
-                <Input
-                  clearable
-                  underlined
-                  fullWidth
-                  label="API Key"
-                  variant="flat"
-                  value={apiKey}
-                  onValueChange={setApiKey}
-                />
-                <Spacer y={1} />
-                <Input
-                  name="apiSecret"
-                  clearable
-                  underlined
-                  fullWidth
-                  label="API Secret"
-                  css={{ mb: '6px' }}
-                  value={apiSecret}
-                  onValueChange={setApiSecret}
-                />
-              </div>
-            </CardBody>
-          </Card>
-          <Spacer y={1} />
-          <Card>
-            <CardHeader className="text-left text-xl md:text-base font-bold gap-3">
-              Organizacija
-            </CardHeader>
-            <Divider />
-            <CardBody>
-              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
-                <Input
-                  clearable
-                  underlined
-                  fullWidth
-                  label="Business Unit"
-                  variant="flat"
-                  value={businessUnit}
-                  onValueChange={setBusinessUnit}
-                />
-                <Spacer y={1} />
-                <Input
-                  clearable
-                  underlined
-                  fullWidth
-                  label="Uporabniško ime"
-                  variant="flat"
-                  value={userName}
-                  onValueChange={setUserName}
-                />
-                <Spacer y={1} />
-                <Input
-                  clearable
-                  underlined
-                  fullWidth
-                  label="Ime in priimek"
-                  variant="flat"
-                  value={fullName}
-                  onValueChange={setFullName}
-                />
-              </div>
-              <Spacer y={1} />
+          {/* Main two-column layout */}
+          <div className="flex gap-3">
+            {/* LEFT PANE */}
+            <div className="flex-1 flex flex-col gap-3">
+              <Card>
+                <Divider />
+                <CardBody>
+                  <div className="flex flex-col gap-3">
+                    <Input
+                      clearable
+                      underlined
+                      fullWidth
+                      label="Id naročilnice"
+                      variant="flat"
+                      value={referralId}
+                      onValueChange={setReferralId}
+                    />
+                  </div>
+                </CardBody>
+              </Card>
+              <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve(
+                {
+                  apiUrl: apiUrl, apiSecret: apiSecret
+                  , sender: {
+                    apiKey: apiKey,
+                    businessUnit: businessUnit,
+                    userName: userName
+                  }
+                  , user: {
+                    fullName: fullName
+                  },
+                  payload: { referralId: referralId || '' }
+                })}>Poizvedi</Button>
+              <Card>
+                <Divider />
+                <CardBody>
+                  <div className="flex flex-col gap-3">
+                    <Input
+                      clearable
+                      underlined
+                      fullWidth
+                      label="BIS številka naročilnice"
+                      variant="flat"
+                      value={correlationId}
+                      onValueChange={setCorrelationId}
+                    />
+                  </div>
+                </CardBody>
+              </Card>
+              <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve(
+                {
+                  apiUrl: apiUrl, apiSecret: apiSecret
+                  , sender: {
+                    apiKey: apiKey,
+                    businessUnit: businessUnit,
+                    userName: userName
+                  }
+                  , user: {
+                    fullName: fullName
+                  },
+                  payload: { correlationId: correlationId || '' }
+                })}>Poizvedi</Button>
+            </div>
 
-            </CardBody>
-          </Card>
-          <Spacer y={8} />
+            {/* RIGHT PANE - fixed 220px */}
+            <div style={{ width: '220px', minWidth: '220px' }} className="flex flex-col gap-3">
+              {/* Organizacija */}
+              <Card>
+                <CardHeader className="text-left text-xl md:text-base font-bold gap-3">
+                  Organizacija
+                </CardHeader>
+                <Divider />
+                <CardBody>
+                  <div className="flex flex-col gap-3">
+                    <Input
+                      clearable
+                      underlined
+                      fullWidth
+                      label="Business Unit"
+                      variant="flat"
+                      value={businessUnit}
+                      onValueChange={setBusinessUnit}
+                    />
+                    <Input
+                      clearable
+                      underlined
+                      fullWidth
+                      label="Uporabniško ime"
+                      variant="flat"
+                      value={userName}
+                      onValueChange={setUserName}
+                    />
+                    <Input
+                      clearable
+                      underlined
+                      fullWidth
+                      label="Ime in priimek"
+                      variant="flat"
+                      value={fullName}
+                      onValueChange={setFullName}
+                    />
+                  </div>
+                </CardBody>
+              </Card>
 
-          <Card>
-            <CardHeader>
+              {/* API */}
+              <Card>
+                <CardHeader className="text-left text-xl md:text-base font-bold gap-3">
+                  API
+                </CardHeader>
+                <Divider />
+                <CardBody>
+                  <div className="flex flex-col gap-3">
+                    <Input
+                      clearable
+                      underlined
+                      fullWidth
+                      label="API Key"
+                      variant="flat"
+                      value={apiKey}
+                      onValueChange={setApiKey}
+                    />
+                    <Input
+                      name="apiSecret"
+                      clearable
+                      underlined
+                      fullWidth
+                      label="API Secret"
+                      value={apiSecret}
+                      onValueChange={setApiSecret}
+                    />
+                  </div>
+                </CardBody>
+              </Card>
 
-            </CardHeader>
-            <Divider />
-            <CardBody>
-              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
-                <Input
-                  clearable
-                  underlined
-                  fullWidth
-                  label="Id naročilnice"
-                  variant="flat"
-                  value={referralId}
-                  onValueChange={setReferralId}
-                />
-              </div>
-              <Spacer y={1} />
-            </CardBody>
-          </Card>
-          <Spacer y={1} />
-          <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve(
-            {
-              apiUrl: apiUrl, apiSecret: apiSecret
-              , sender: {
-                apiKey: apiKey,
-                businessUnit: businessUnit,
-                userName: userName
-              }
-              , user: {
-                fullName: fullName
-              },
-              payload: { referralId: referralId || '' }
-            })}>Poizvedi</Button>
-          <Spacer y={8} />
-          <Card>
-            <CardHeader>
-
-            </CardHeader>
-            <Divider />
-            <CardBody>
-              <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-3">
-                <Input
-                  clearable
-                  underlined
-                  fullWidth
-                  label="BIS številka naročilnice"
-                  variant="flat"
-                  value={correlationId}
-                  onValueChange={setCorrelationId}
-                />
-              </div>
-            </CardBody>
-          </Card>
-          <Spacer y={1} />
-          <Button type="button" color="primary" size="lg" onClick={event => onStatusRetrieve(
-            {
-              apiUrl: apiUrl, apiSecret: apiSecret
-              , sender: {
-                apiKey: apiKey,
-                businessUnit: businessUnit,
-                userName: userName
-              }
-              , user: {
-                fullName: fullName
-              },
-              payload: { correlationId: correlationId || '' }
-            })}>Poizvedi</Button>
+              {/* Other settings */}
+              <Card>
+                <Divider />
+                <CardBody>
+                  <div className="flex flex-col gap-3">
+                    <Input
+                      clearable
+                      underlined
+                      fullWidth
+                      label="API URL"
+                      variant="flat"
+                      value={apiUrl}
+                      onValueChange={setApiUrl}
+                    />
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+          </div>
         </form>
       </div>
       <Modal
